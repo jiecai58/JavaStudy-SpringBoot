@@ -14,7 +14,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  */
 public class NettyServer {
     public static void main(String[] args)throws Exception{
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workGroup = new NioEventLoopGroup();
         ServerBootstrap bootstrap = new ServerBootstrap();
         try {
@@ -31,6 +31,7 @@ public class NettyServer {
                         //给pipeline设置处理器
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception{
+                            System.out.println("client socketchannel hashcode="+ ch.hashCode());
                             ch.pipeline().addLast(new NettyServerHandler());
                         }
                     });//给workGroup的EventLoop对应的管道设置处理器

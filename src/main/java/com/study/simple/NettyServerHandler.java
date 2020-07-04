@@ -1,12 +1,11 @@
 package com.study.simple;
 
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.ChannelPipeline;
 import io.netty.util.CharsetUtil;
+
+import java.util.concurrent.TimeUnit;
 
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     /**
@@ -16,7 +15,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
      * @param msg
      * @throws Exception
      */
-    @Override
+/*    @Override
     public void  channelRead(ChannelHandlerContext ctx, Object msg)throws Exception{
         System.out.println("server threads " + Thread.currentThread().getName());
         System.out.println("server ctx="+ ctx);
@@ -26,8 +25,50 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         ByteBuf buf = (ByteBuf) msg;
         System.out.println("client set msg:"+ buf.toString(CharsetUtil.UTF_8));
         System.out.println("client address:"+ ctx.channel().remoteAddress());
-    }
+    }*/
 
+    @Override
+    public void  channelRead(ChannelHandlerContext ctx, Object msg)throws Exception{
+        // 自定义普通任务,任务提交到TaskQueue
+        ctx.channel().eventLoop().execute(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(10*1000);
+                    ctx.writeAndFlush(Unpooled.copiedBuffer("Hello, client cat1!", CharsetUtil.UTF_8));
+                }catch (Exception e){
+
+                }
+
+            }
+        });
+
+        ctx.channel().eventLoop().execute(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(10*1000);
+                    ctx.writeAndFlush(Unpooled.copiedBuffer("Hello, client cat2!", CharsetUtil.UTF_8));
+                }catch (Exception e){
+
+                }
+
+            }
+        });
+        //自定义定时任务，任务提交到scheduleTaskQueue
+        ctx.channel().eventLoop().schedule(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(10*1000);
+                    ctx.writeAndFlush(Unpooled.copiedBuffer("Hello, client cat3!", CharsetUtil.UTF_8));
+                }catch (Exception e){
+
+                }
+
+            }
+        },5, TimeUnit.SECONDS);
+    }
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception{
         ctx.writeAndFlush(Unpooled.copiedBuffer("Hello, client!", CharsetUtil.UTF_8));
