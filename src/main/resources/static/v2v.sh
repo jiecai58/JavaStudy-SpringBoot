@@ -320,7 +320,7 @@ installV2Ray(){
         local UUID="$(cat '/proc/sys/kernel/random/uuid')"
 
         unzip -pq "$1" "$2vpoint_vmess_freedom.json" | \
-        sed -e "s/10086/${PORT}/g; s/23ad6b10-8d1a-40f7-8ad0-e3e35cd38297/${UUID}/g;" - > \
+        sed -e "s/10086/${PORT}/g; s/81ad6b10-8d1a-40f7-8ad041918-e3e35cd38297/${UUID}/g;" - > \
         '/etc/v2ray/config.json' || {
             colorEcho ${YELLOW} "Failed to create V2Ray configuration file. Please create it manually."
             return 1
