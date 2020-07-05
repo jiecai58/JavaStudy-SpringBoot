@@ -1,10 +1,7 @@
 package com.study.simple;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -37,6 +34,18 @@ public class NettyServer {
                     });//给workGroup的EventLoop对应的管道设置处理器
             //绑定一个端口并同步生成一个ChannelFuture对象
             ChannelFuture future = bootstrap.bind(5878).sync();
+            //给future 注册监听器(listener)，监控事件
+            future.addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture channelFuture) throws Exception {
+                    if (channelFuture.isSuccess()) {
+                        System.out.println("listener port 5878 ,is success ");
+                    }  else {
+                        System.out.println("listener port 5878,is failure ");
+
+                    }
+                }
+            });
             System.out.println("netty Server is ready ...");
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
