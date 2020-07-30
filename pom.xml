@@ -19,6 +19,7 @@
 		<java.version>1.8</java.version>
 		<vaadin.version>14.0.11</vaadin.version>
 		<netty.version>4.1.50.Final</netty.version>
+		<hibernate.version>5.4.18.Final</hibernate.version>
 	</properties>
 
 	<dependencies>
@@ -101,11 +102,16 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		<!--<dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-		</dependency>-->
+		</dependency>
 		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
