@@ -13,7 +13,7 @@ public class NettyServer {
     public static void main(String[] args)throws Exception{
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workGroup = new NioEventLoopGroup();
-        ServerBootstrap bootstrap = new ServerBootstrap();
+        ServerBootstrap bootstrap = new ServerBootstrap(); //启动分装类
         try {
             //设置两个线程组
             bootstrap.group(bossGroup,workGroup)
@@ -29,9 +29,17 @@ public class NettyServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception{
                             System.out.println("client socketchannel hashcode="+ ch.hashCode());
+                            // 这里将FixedLengthFrameDecoder添加到pipeline中，指定长度为20
+                            //ch.pipeline().addLast(new FixedLengthFrameDecoder(20));
+                            // 将前一步解码得到的数据转码为字符串
+                            //ch.pipeline().addLast(new StringDecoder());
+                            // 这里FixedLengthFrameEncoder是我们自定义的，用于将长度不足20的消息进行补全空格
+                            //ch.pipeline().addLast(new FixedLengthFrameEncoder(20));
+                            // 最终的数据处理
                             ch.pipeline().addLast(new NettyServerHandler());
                         }
-                    });//给workGroup的EventLoop对应的管道设置处理器
+                    })
+            ;//给workGroup的EventLoop对应的管道设置处理器
             //绑定一个端口并同步生成一个ChannelFuture对象
             ChannelFuture future = bootstrap.bind(5878).sync();
             //给future 注册监听器(listener)，监控事件
