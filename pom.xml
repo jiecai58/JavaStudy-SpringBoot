@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.caijie</groupId>
-	<artifactId>study-deeply</artifactId>
+	<artifactId>study</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>study-deeply</name>
+	<name>study</name>
 	<description>Java study deeply</description>
 
 	<properties>
@@ -202,11 +202,6 @@
 			<artifactId>spring-boot-test</artifactId>
 			<version>2.2.0.RELEASE</version>
 			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
-			<version>${elasticsearch.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.elasticsearch.client</groupId>
