@@ -1,0 +1,9 @@
+package com.study.future;
+
+public class LearnRecordService implements RemoteLoader {
+    @Override
+    public String load() {
+        this.delay();
+        return "学习信息";
+    }
+}
