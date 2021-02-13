@@ -1,9 +1,14 @@
 package com.study.future;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CustomerInfoService implements RemoteLoader {
     @Override
-    public String load() {
+    public Map<String, String> load() {
         this.delay();
-        return "基本信息";
+        HashMap<String, String> k = new HashMap<>();
+        k.put("CustomerInfo","基本信息");
+        return k;
     }
 }

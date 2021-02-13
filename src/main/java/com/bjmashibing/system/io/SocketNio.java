@@ -1,13 +1,12 @@
 package com.bjmashibing.system.io;
 
 import java.net.InetSocketAddress;
-import java.net.StandardSocketOptions;
 import java.nio.ByteBuffer;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.LinkedList;
 
-public class SocketNIO {
+class SocketNIO {
 
     //  what   why  how
     public static void main(String[] args) throws Exception {

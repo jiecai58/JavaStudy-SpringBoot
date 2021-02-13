@@ -1,7 +1,9 @@
 package com.study.future;
 
+import java.util.Map;
+
 public interface RemoteLoader {
-    String load();
+    Map<String, String> load();
 
     default void delay() {
         try {

@@ -1,9 +1,16 @@
 package com.study.future;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LabelService implements RemoteLoader {
     @Override
-    public String load() {
+    public Map<String, String> load() {
         this.delay();
-        return "标签信息";
+
+        HashMap<String, String> k = new HashMap<>();
+        k.put("LabelService","标签信息");
+        return k;
+
     }
 }

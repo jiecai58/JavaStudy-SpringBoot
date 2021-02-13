@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -25,7 +25,7 @@ import static java.util.stream.Collectors.toList;
 public class Future {
 
     //Future实现的版本
-    @Test
+    /*@Test
     public void testFuture() {
         long start = System.currentTimeMillis();
         ExecutorService executorService = Executors.newFixedThreadPool(2);
@@ -87,10 +87,10 @@ public class Future {
                 })
                 .exceptionally(throwable -> "Throwable exception message:" + throwable.getMessage());
         System.out.println(future.get());
-    }
+    }*/
 
 //使用CompletableFuture来完成我们查询用户详情的API接口
-    @Test
+    /*@Test
     public void testCompletableFuture31() throws ExecutionException, InterruptedException {
         long start = System.currentTimeMillis();
         List<RemoteLoader> remoteLoaders = Arrays.asList(
@@ -112,7 +112,7 @@ public class Future {
         System.out.println(customerDetail);
         long end = System.currentTimeMillis();
         System.out.println("总共花费时间:" + (end - start));
-    }
+    }*/
 
     /**
      * 自定义线程池，优化CompletableFuture
@@ -132,12 +132,12 @@ public class Future {
 
         ExecutorService executorService = Executors.newFixedThreadPool(Math.min(remoteLoaders.size(), 50));
 
-        List<CompletableFuture<String>> completableFutures = remoteLoaders
+        List<CompletableFuture<Map<String, String>>> completableFutures = remoteLoaders
                 .stream()
                 .map(loader -> CompletableFuture.supplyAsync(loader::load, executorService))
                 .collect(toList());
 
-        List<String> customerDetail = completableFutures
+        List<Map<String, String>> customerDetail = completableFutures
                 .stream()
                 .map(CompletableFuture::join)
                 .collect(toList());
@@ -148,17 +148,7 @@ public class Future {
     }
 
     //Java8并行流
-    @Test
-    public void testParallelStream() {
-        long start = System.currentTimeMillis();
-        List<RemoteLoader> remoteLoaders = Arrays.asList(new CustomerInfoService(), new LearnRecordService());
-        List<String> customerDetail = remoteLoaders.parallelStream().map(RemoteLoader::load).collect(toList());
-        System.out.println(customerDetail);
-        long end = System.currentTimeMillis();
-        System.out.println("总共花费时间:" + (end - start));
-    }
-
-    @Test
+    /*@Test
     public void testParallelStream2() {
         long start = System.currentTimeMillis();
         List<RemoteLoader> remoteLoaders = Arrays.asList(
@@ -171,11 +161,11 @@ public class Future {
         System.out.println(customerDetail);
         long end = System.currentTimeMillis();
         System.out.println("总共花费时间:" + (end - start));
-    }
+    }*/
 
 
 //同步方式实现版本
-    @Test
+    /*@Test
     public void testSync() {
         long start = System.currentTimeMillis();
         List<RemoteLoader> remoteLoaders = Arrays.asList(new CustomerInfoService(), new LearnRecordService());
@@ -183,7 +173,7 @@ public class Future {
         System.out.println(customerDetail);
         long end = System.currentTimeMillis();
         System.out.println("总共花费时间:" + (end - start));
-    }
+    }*/
 
 
     /**

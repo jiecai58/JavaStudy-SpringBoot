@@ -1,9 +1,14 @@
 package com.study.future;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class WatchRecordService implements RemoteLoader {
     @Override
-    public String load() {
+    public Map<String, String> load() {
         this.delay();
-        return "观看记录";
+        HashMap<String, String> k = new HashMap<>();
+        k.put("WatchRecordService","观看记录");
+        return k;
     }
 }
