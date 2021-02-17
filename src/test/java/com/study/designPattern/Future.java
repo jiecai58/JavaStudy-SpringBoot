@@ -1,4 +1,5 @@
 package com.study.designPattern;
+
 import com.study.future.CustomerInfoService;
 import com.study.future.LabelService;
 import com.study.future.LearnRecordService;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -25,15 +27,15 @@ import static java.util.stream.Collectors.toList;
 public class Future {
 
     //Future实现的版本
-    /*@Test
+    @Test
     public void testFuture() {
         long start = System.currentTimeMillis();
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         List<RemoteLoader> remoteLoaders = Arrays.asList(new CustomerInfoService(), new LearnRecordService());
-        List<java.util.concurrent.Future<String>> futures = remoteLoaders.stream()
+        List<java.util.concurrent.Future<Map<String, String>>> futures = remoteLoaders.stream()
                 .map(remoteLoader -> executorService.submit(remoteLoader::load))
                 .collect(toList());
-                List<String> customerDetail = futures.stream()
+        List<Map<String, String>> customerDetail = futures.stream()
                 .map(future -> {
                     try {
                         return future.get();
@@ -42,8 +44,7 @@ public class Future {
                     }
                     return null;
                 })
-                .filter(Objects::nonNull)
-                .collect(toList());
+                .filter(Objects::nonNull).collect(toList());
         System.out.println(customerDetail);
         long end = System.currentTimeMillis();
         System.out.println("总共花费时间:" + (end - start));
@@ -87,10 +88,10 @@ public class Future {
                 })
                 .exceptionally(throwable -> "Throwable exception message:" + throwable.getMessage());
         System.out.println(future.get());
-    }*/
+    }
 
 //使用CompletableFuture来完成我们查询用户详情的API接口
-    /*@Test
+    @Test
     public void testCompletableFuture31() throws ExecutionException, InterruptedException {
         long start = System.currentTimeMillis();
         List<RemoteLoader> remoteLoaders = Arrays.asList(
@@ -99,24 +100,24 @@ public class Future {
                 new LabelService(),
                 new OrderService(),
                 new WatchRecordService());
-        List<CompletableFuture<String>> completableFutures = remoteLoaders
+        List<CompletableFuture<Map<String, String>>> completableFutures = remoteLoaders
                 .stream()
                 .map(loader -> CompletableFuture.supplyAsync(loader::load))
                 .collect(toList());
 
-        List<String> customerDetail = completableFutures
+        List<Map<String, String>> customerDetail = completableFutures
                 .stream()
-                .map(CompletableFuture::join)
-                .collect(toList());
+                .map(CompletableFuture::join).collect(toList());
 
         System.out.println(customerDetail);
         long end = System.currentTimeMillis();
         System.out.println("总共花费时间:" + (end - start));
-    }*/
+    }
 
     /**
      * 自定义线程池，优化CompletableFuture
      * 使用并行流无法自定义线程池，但是CompletableFuture可以
+     * 并行流和异步调用的性能不分伯仲,究其原因都一样,它们内部采用的是同样的通用线程池,默认都使用固定数目的线程,具体线程数取决于Runtime.getRuntime.availableProcessors()放回值,然而,.CompletableFuture具有一定的优势,因为它允许你对执行器进行配置,尤其是线程池的大小,让它以适合应用需求的方式进行配置,满足程序的要求,而这是并行流API无法提供的
      * @throws ExecutionException
      * @throws InterruptedException
      */
@@ -129,15 +130,22 @@ public class Future {
                 new LabelService(),
                 new OrderService(),
                 new WatchRecordService());
-
+        Integer k = 1;
         ExecutorService executorService = Executors.newFixedThreadPool(Math.min(remoteLoaders.size(), 50));
 
         List<CompletableFuture<Map<String, String>>> completableFutures = remoteLoaders
                 .stream()
-                .map(loader -> CompletableFuture.supplyAsync(loader::load, executorService))
+                .map(loader ->CompletableFuture.supplyAsync(loader::load
+                        , executorService))
                 .collect(toList());
 
-        List<Map<String, String>> customerDetail = completableFutures
+        List<CompletableFuture<Map<String, String>>> completableFutures1 = remoteLoaders
+                .stream()
+                .map(loader ->CompletableFuture.supplyAsync(()->loader.load1(k)
+                , executorService))
+                .collect(toList());
+
+        List<Map<String, String>> customerDetail = completableFutures1
                 .stream()
                 .map(CompletableFuture::join)
                 .collect(toList());
@@ -148,7 +156,7 @@ public class Future {
     }
 
     //Java8并行流
-    /*@Test
+    @Test
     public void testParallelStream2() {
         long start = System.currentTimeMillis();
         List<RemoteLoader> remoteLoaders = Arrays.asList(
@@ -157,23 +165,23 @@ public class Future {
                 new LabelService(),
                 new OrderService(),
                 new WatchRecordService());
-        List<String> customerDetail = remoteLoaders.parallelStream().map(RemoteLoader::load).collect(toList());
+        List<Map<String, String>> customerDetail = remoteLoaders.parallelStream().map(RemoteLoader::load).collect(toList());
         System.out.println(customerDetail);
         long end = System.currentTimeMillis();
         System.out.println("总共花费时间:" + (end - start));
-    }*/
+    }
 
 
 //同步方式实现版本
-    /*@Test
+    @Test
     public void testSync() {
         long start = System.currentTimeMillis();
         List<RemoteLoader> remoteLoaders = Arrays.asList(new CustomerInfoService(), new LearnRecordService());
-        List<String> customerDetail = remoteLoaders.stream().map(RemoteLoader::load).collect(toList());
+        List<Map<String, String>> customerDetail = remoteLoaders.stream().map(RemoteLoader::load).collect(toList());
         System.out.println(customerDetail);
         long end = System.currentTimeMillis();
         System.out.println("总共花费时间:" + (end - start));
-    }*/
+    }
 
 
     /**
@@ -191,4 +199,11 @@ public class Future {
      *
      * thenCombine、thenCombineAsync：允许你把两个异步的操作整合；比如把第一个和第二个操作返回的结果做字符串的连接操作
      */
+
+    //组合
+//使用thenCombine() thenCombineAsync()之后future1、future2之间是并行执行的，最后再将结果汇总。这一点跟thenCompose()不同。
+    CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> "100");
+    CompletableFuture<Integer> future2 = CompletableFuture.supplyAsync(() -> 100);
+    CompletableFuture<Double> futureq = future1.thenCombine(future2, (s, i) -> Double.parseDouble(s + i));
+
 }

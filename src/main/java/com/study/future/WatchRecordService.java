@@ -11,4 +11,12 @@ public class WatchRecordService implements RemoteLoader {
         k.put("WatchRecordService","观看记录");
         return k;
     }
+
+    @Override
+    public Map<String, String> load1(Integer p) {
+        this.delay();
+        HashMap<String, String> k = new HashMap<>();
+        k.put("WatchRecordService","观看记录");
+        return k;
+    }
 }

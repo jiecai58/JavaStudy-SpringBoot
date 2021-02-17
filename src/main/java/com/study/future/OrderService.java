@@ -11,4 +11,12 @@ public class OrderService implements RemoteLoader {
         k.put("OrderService","订单信息");
         return k;
     }
+
+    @Override
+    public Map<String, String> load1(Integer p) {
+        this.delay();
+        HashMap<String, String> k = new HashMap<>();
+        k.put("OrderService","订单信息");
+        return k;
+    }
 }

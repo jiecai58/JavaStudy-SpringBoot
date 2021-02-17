@@ -13,4 +13,14 @@ public class LabelService implements RemoteLoader {
         return k;
 
     }
+
+    @Override
+    public Map<String, String> load1(Integer p) {
+        this.delay();
+
+        HashMap<String, String> k = new HashMap<>();
+        k.put("LabelService","标签信息");
+        return k;
+
+    }
 }
