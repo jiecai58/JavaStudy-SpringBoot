@@ -1,5 +1,6 @@
 package com.study.designPattern;
 
+import com.google.common.collect.Lists;
 import com.study.completableFuture.future.CustomerInfoService;
 import com.study.completableFuture.future.LabelService;
 import com.study.completableFuture.future.LearnRecordService;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -20,6 +22,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -218,6 +223,74 @@ public class Future {
                 );
     }
 
+    public void testCompletableFutureThenApplyAccept() {
+        CompletableFuture.supplyAsync(this::findAccountNumber)
+                .thenApply(this::calculateBalance)
+                .thenApply(this::notifyBalance)
+                .thenAccept((i) -> notifyByEmail()).join();
+    }
+
+    public void testCompletableFutureApplyAsync() {
+        ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(2);
+        ScheduledExecutorService newSingleThreadScheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+        CompletableFuture<Double> completableFuture =
+                CompletableFuture
+                        .supplyAsync(this::findAccountNumber, newFixedThreadPool) // 从线程池 newFixedThreadPool 获取线程执行任务
+                        .thenApplyAsync(this::calculateBalance, newSingleThreadScheduledExecutor)
+                        .thenApplyAsync(this::notifyBalance);
+        Double balance = completableFuture.join();
+    }
+
+    private void notifyByEmail() {
+        // business code
+        System.out.println("send notify by email ...");
+    }
+
+    private Double notifyBalance(Double d) {
+        // business code
+        System.out.println(String.format("your balance is $%s", d));
+        return 9527D;
+    }
+
+    private Double calculateBalance(Object o) {
+        // business code
+        return 9527D;
+    }
+
+    private Double findAccountNumber() {
+        // business code
+        return 9527D;
+    }
+
+    /**
+     * 希望并行运行多个任务，并在所有任务完成后再进行一些处理。假设我们要查找 3 个不同用户的姓名并将结果合并。
+     * 此时就可以使用 CompletableFuture 的静态方法 allOf，该方法会等待所有任务完成，需要注意的是该方法它不会返回所有任务的合并结果，因此我们必须手动组合任务的执行结果。
+     */
+    @Test
+    public void testCompletableFutureAllof() {
+        List<CompletableFuture<String>> list = Lists.newArrayListWithCapacity(4);
+        IntStream.range(0, 3).forEach(num -> list.add(findName(num)));
+
+        CompletableFuture<Void> allFuture = CompletableFuture
+                .allOf(list.toArray(new CompletableFuture[0]));
+
+        CompletableFuture<List<String>> allFutureList = allFuture
+                .thenApply(val -> list.stream().map(CompletableFuture::join).collect(Collectors.toList()));
+
+        CompletableFuture<String> futureHavingAllValues = allFutureList
+                .thenApply(fn -> String.join("", fn));
+
+        String result = futureHavingAllValues.join();
+    }
+
+    private CompletableFuture<String> findName(int num) {
+        return CompletableFuture.supplyAsync(() -> {
+            // business code
+            return "mghio" + num;
+        });
+    }
+
+
     //applyToEither哪个线程先返回就使用谁的返回结果进入该方法
     public void applyToEither() throws Exception {
         CompletableFuture<String> result = CompletableFuture.supplyAsync(() -> "100")
@@ -268,4 +341,89 @@ public class Future {
         });
         System.out.println("thenCompose result : " + f.get());
     }
+
+    //allOf同步等待所有异步线程任务结束
+    public Object getStudentInfoWithCompletableFuture() {
+        Map<String, Object> resultMap = new HashMap<>(10);
+        try {
+            CompletableFuture<Object> completableFutureStudentName = CompletableFuture.supplyAsync(() -> "caijie");
+
+            CompletableFuture<Object> completableFutureSutdentAge = CompletableFuture.supplyAsync(() -> 18);
+
+
+            CompletableFuture.allOf(completableFutureStudentName, completableFutureSutdentAge).join();
+
+            resultMap.put("studentName", completableFutureStudentName.get());
+            resultMap.put("studentAge", completableFutureSutdentAge.get());
+        } catch (Exception e) {
+            resultMap.put("errMsg", e.getMessage());
+        }
+        return resultMap;
+
+    }
+
+    public void allOfOrAnyOf() {
+        CompletableFuture<Void> future = CompletableFuture
+                .allOf(CompletableFuture.completedFuture("A"),
+                        CompletableFuture.completedFuture("B"));
+         //全部任务都需要执行完
+        future.join();
+        CompletableFuture<Object> future2 = CompletableFuture
+                .anyOf(CompletableFuture.completedFuture("C"),
+                        CompletableFuture.completedFuture("D"));
+        //其中一个任务行完即可
+        future2.join();
+    }
+
+
+//异常处理
+
+    /**
+     * 使用 exceptionally 方法处理异常，如果前面的方法失败并发生异常，则会调用异常回调
+     */
+    public void testCompletableFutureExceptionally() {
+        CompletableFuture<Double> thenApply = CompletableFuture.supplyAsync(this::findAccountNumber)
+                .thenApply(this::calculateBalance)
+                .thenApply(this::notifyBalance)
+                .exceptionally(ex -> {
+                    System.out.println("Exception " + ex.getMessage());
+                    return 0D;
+                });
+        Double join = thenApply.join();
+    }
+
+    /**
+     * handle 方法处理异常，使用该方式处理异常比上面的 exceptionally 方式更为灵活，
+     * 我们可以同时获取到异常对象和当前的处理结果。
+     */
+    public void testCompletableFutureHandle() {
+        CompletableFuture.supplyAsync(this::findAccountNumber)
+                .thenApply(this::calculateBalance)
+                .thenApply(this::notifyBalance)
+                .handle((ok, ex) -> {
+                    System.out.println("最终要运行的代码...");
+                    if (ok != null) {
+                        System.out.println("No Exception !!");
+                    } else {
+                        System.out.println("Exception " + ex.getMessage());
+                        return -1D;
+                    }
+                    return ok;
+                });
+    }
+
+    /**
+     * whenComplete 方法处理异常
+     */
+    public void testCompletableFutureWhenComplete() {
+        CompletableFuture.supplyAsync(this::findAccountNumber)
+                .thenApply(this::calculateBalance)
+                .thenApply(this::notifyBalance)
+                .whenComplete((result, ex) -> {
+                    System.out.println("result = " + result + ", ex = " + ex);
+                    System.out.println("最终要运行的代码...");
+                });
+    }
+
+
 }
