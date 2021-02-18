@@ -1,0 +1,43 @@
+package com.study.aspect;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.expression.EvaluationContext;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.expression.spel.support.StandardEvaluationContext;
+import org.springframework.stereotype.Component;
+
+@Component
+@Aspect
+public class MyAspect {
+    @Around("@annotation(dst)")
+    public Object cache(ProceedingJoinPoint joinPoint,MyCache dst)throws Throwable{
+        //获取方法签名
+        MethodSignature  methodSignature = (MethodSignature) joinPoint.getSignature();
+        //得到el表达式
+        String el = dst.value();
+        //解析el表达式，将#id等替换为参数值
+        ExpressionParser expressionParser = new SpelExpressionParser();
+        Expression expression = expressionParser.parseExpression(dst.value());
+        EvaluationContext context = new StandardEvaluationContext();
+        String[] parameterNames = methodSignature.getParameterNames();
+        Object[] args = joinPoint.getArgs();
+        for (int i = 0; i <parameterNames.length ; i++) {
+            context.setVariable(parameterNames[i],args[i]);
+        }
+        String key = expression.getValue(context).toString();
+        System.out.println(key);
+        //根据key从缓存中拿数据，这里省略
+
+        //如果缓存中没有则执行目标方法
+        Object o =   joinPoint.proceed();
+        //将结果放入缓存,这里省略
+
+        return o;
+
+    }
+}

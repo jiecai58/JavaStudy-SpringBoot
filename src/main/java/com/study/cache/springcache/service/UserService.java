@@ -22,6 +22,12 @@ public class UserService{
         return user;
     }
 
+    @Cacheable(key = "#user.id")
+    public User get(User user) {
+        return user;
+    }
+
+
     @CachePut(key = "#user.id")
     public User update(User user) {
         users.remove(user);

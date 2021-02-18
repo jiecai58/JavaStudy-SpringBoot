@@ -7,6 +7,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
@@ -21,13 +24,20 @@ public class UserServiceTest {
     @Resource
     private CacheManager cacheManager;
 
+
     @Test
     public void testCache() {
+
+        ExpressionParser parser = new SpelExpressionParser();
+        Expression expression = parser.parseExpression("#user.id");
+        /*String result = (String) expression.getValue();
+        System.out.println("result:" + result);*/
+
         Long id = 1L;
         User user = new User(id, "ye", "swiftleaf612@gmail.com");
         userService.save(user);
+        System.out.printf(userService.get(new User(id, "ye", null)).getEmail());
         Assert.assertNotNull(cacheManager.getCache(String.valueOf(id)));
-        cacheManager.getCache("user");
         userService.findById(id);
     }
 }
