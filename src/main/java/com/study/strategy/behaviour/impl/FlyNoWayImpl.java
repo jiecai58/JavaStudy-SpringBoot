@@ -1,6 +1,6 @@
 package com.study.strategy.behaviour.impl;
 
-import com.wyt.headfirst.strategy.behaviour.IFlyBehavior;
+import com.study.strategy.behaviour.IFlyBehavior;
 
 /**
  * 没有翅膀的鸭子 实现飞行的方法

@@ -1,8 +1,8 @@
 package com.study.thinking.factory.factory;
 
-import com.wyt.headfirst.thinking.factory.factory.framework.Factory;
-import com.wyt.headfirst.thinking.factory.factory.framework.Product;
-import com.wyt.headfirst.thinking.factory.factory.idcard.IDCardFactory;
+import com.study.thinking.factory.factory.framework.Factory;
+import com.study.thinking.factory.factory.framework.Product;
+import com.study.thinking.factory.factory.idcard.IDCardFactory;
 
 /**
  * 工厂方法模式:用模板方法模式构建生成实例的工厂

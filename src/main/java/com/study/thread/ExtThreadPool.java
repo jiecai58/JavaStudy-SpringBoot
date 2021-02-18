@@ -1,7 +1,5 @@
 package com.study.thread;
 
-import scala.tools.nsc.Global;
-
 import java.util.concurrent.*;
 
 /**

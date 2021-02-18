@@ -24,7 +24,7 @@ public class ServerBootstrapTest {
                 .childHandler(new SimpleChannelInboundHandler<ByteBuf>() {
 
                     @Override
-                    protected void messageReceived(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf) throws Exception {
+                    protected void channelRead0(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf) throws Exception {
                         System.out.println("Received data");
                     }
 

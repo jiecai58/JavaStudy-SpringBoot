@@ -1,6 +1,6 @@
 package com.study.redis;
 
-import org.javatuples.Pair;
+import javafx.util.Pair;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.ZParams;
@@ -8,7 +8,14 @@ import redis.clients.jedis.ZParams;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
+import java.util.UUID;
 import java.util.zip.CRC32;
 
 public class Chapter09 {
@@ -154,7 +161,7 @@ public class Chapter09 {
 
         assert _aggs.equals(aggs);
 
-        Map<String,Long> countries = aggs.getValue0();
+        /*Map<String,Long> countries = aggs.getValue0();
         Map<String,Map<String,Long>> states = aggs.getValue1();
         for (String country : aggs.getValue0().keySet()){
             if (STATES.containsKey(country)) {
@@ -165,7 +172,7 @@ public class Chapter09 {
             }else{
                 assert countries.get(country) == 1;
             }
-        }
+        }*/
     }
 
     public double longZiplistPerformance(

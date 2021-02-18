@@ -9,10 +9,7 @@ import java.nio.ByteBuffer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * @author Darcy
- *         Created by Administrator on 2016/12/22.
- */
+
 public class Producer {
     private final RingBuffer<PCData> ringBuffer;
 

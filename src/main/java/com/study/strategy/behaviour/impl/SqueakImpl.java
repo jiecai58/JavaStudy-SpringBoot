@@ -1,6 +1,6 @@
 package com.study.strategy.behaviour.impl;
 
-import com.wyt.headfirst.strategy.behaviour.IQuackBehavior;
+import com.study.strategy.behaviour.IQuackBehavior;
 
 /**
  * 橡皮鸭子吱吱叫的行为

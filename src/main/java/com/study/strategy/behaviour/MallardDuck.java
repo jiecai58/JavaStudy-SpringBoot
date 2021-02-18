@@ -1,8 +1,8 @@
 package com.study.strategy.behaviour;
 
-import com.wyt.headfirst.strategy.Duck;
-import com.wyt.headfirst.strategy.behaviour.impl.FIyWithWingsImpl;
-import com.wyt.headfirst.strategy.behaviour.impl.QuckImpl;
+import com.study.strategy.Duck;
+import com.study.strategy.behaviour.impl.FIyWithWingsImpl;
+import com.study.strategy.behaviour.impl.QuckImpl;
 
 /**
  * @author Darcy

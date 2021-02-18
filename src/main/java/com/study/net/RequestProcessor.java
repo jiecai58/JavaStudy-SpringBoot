@@ -1,7 +1,5 @@
 package com.study.net;
 
-import com.google.protobuf.WireFormat;
-
 import java.io.*;
 import java.net.Socket;
 import java.net.URLConnection;

@@ -1,19 +1,16 @@
 package com.study.lambda;
 
-import com.google.common.base.Function;
 
-import java.io.Serializable;
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.atomic.LongAccumulator;
-import java.util.concurrent.atomic.LongAdder;
-import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import static javafx.scene.input.KeyCode.T;
 
 /**
  * @author Darcy

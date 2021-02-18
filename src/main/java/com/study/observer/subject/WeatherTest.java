@@ -1,6 +1,6 @@
 package com.study.observer.subject;
 
-import com.wyt.headfirst.observer.observer.CurrentConditionsDisplay;
+import com.study.observer.observer.CurrentConditionsDisplay;
 
 /**
  * @author Darcy

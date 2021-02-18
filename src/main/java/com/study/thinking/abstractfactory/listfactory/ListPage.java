@@ -1,7 +1,7 @@
 package com.study.thinking.abstractfactory.listfactory;
 
-import com.wyt.headfirst.thinking.abstractfactory.factory.Item;
-import com.wyt.headfirst.thinking.abstractfactory.factory.Page;
+import com.study.thinking.abstractfactory.factory.Item;
+import com.study.thinking.abstractfactory.factory.Page;
 
 /**
  * ListPage和Page 是典型的模板方法模式

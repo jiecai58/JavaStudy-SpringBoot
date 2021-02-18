@@ -1,6 +1,6 @@
 package com.study.thinking.factory.factory.idcard;
 
-import com.wyt.headfirst.thinking.factory.factory.framework.Product;
+import com.study.thinking.factory.factory.framework.Product;
 
 /**
  * 继承产品类,实现如何使用卡

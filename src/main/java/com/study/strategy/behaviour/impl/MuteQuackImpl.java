@@ -1,6 +1,6 @@
 package com.study.strategy.behaviour.impl;
 
-import com.wyt.headfirst.strategy.behaviour.IQuackBehavior;
+import com.study.strategy.behaviour.IQuackBehavior;
 
 /**
  * 木头鸭子 不会叫

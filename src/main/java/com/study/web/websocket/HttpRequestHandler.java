@@ -1,12 +1,14 @@
 package com.study.web.websocket;
 
-import io.netty.channel.*;
-import io.netty.handler.codec.http.*;
-import io.netty.handler.ssl.SslHandler;
-import io.netty.handler.stream.ChunkedNioFile;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.FullHttpRequest;
+import io.netty.handler.codec.http.FullHttpResponse;
+import io.netty.handler.codec.http.HttpResponseStatus;
+import io.netty.handler.codec.http.HttpVersion;
 
 import java.io.File;
-import java.io.RandomAccessFile;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -36,10 +38,23 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
         this.wsUri = wsUri;
     }
 
+    private static void send100Continue(ChannelHandlerContext ctx) {
+        FullHttpResponse response = new DefaultFullHttpResponse(
+                HttpVersion.HTTP_1_1, HttpResponseStatus.CONTINUE);
+        ctx.writeAndFlush(response);
+    }
+
     @Override
-    public void messageReceived(ChannelHandlerContext ctx,
-                             FullHttpRequest request) throws Exception {
-        if (wsUri.equalsIgnoreCase(request.uri())) {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+            throws Exception {
+        cause.printStackTrace();
+        ctx.close();
+    }
+
+
+    @Override
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, FullHttpRequest request) throws Exception {
+        /*if (wsUri.equalsIgnoreCase(request.uri())) {
             ctx.fireChannelRead(request.retain());
         } else {
             if (HttpHeaderUtil.is100ContinueExpected(request)) {
@@ -64,21 +79,6 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             if (!keepAlive) {
                 future.addListener(ChannelFutureListener.CLOSE);
             }
-        }
+        } */
     }
-
-    private static void send100Continue(ChannelHandlerContext ctx) {
-        FullHttpResponse response = new DefaultFullHttpResponse(
-                HttpVersion.HTTP_1_1, HttpResponseStatus.CONTINUE);
-        ctx.writeAndFlush(response);
-    }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-            throws Exception {
-        cause.printStackTrace();
-        ctx.close();
-    }
-
-
 }

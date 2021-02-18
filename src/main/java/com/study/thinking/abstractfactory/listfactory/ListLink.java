@@ -1,6 +1,6 @@
 package com.study.thinking.abstractfactory.listfactory;
 
-import com.wyt.headfirst.thinking.abstractfactory.factory.Link;
+import com.study.thinking.abstractfactory.factory.Link;
 
 /**
  * ListLink和Item  就是典型的模板方法模式

@@ -1,8 +1,6 @@
 package com.study.observer.observer;
 
-import com.wyt.headfirst.observer.subject.ISubject;
-
-import java.util.Observer;
+import com.study.observer.subject.ISubject;
 
 /**
  * @author Darcy

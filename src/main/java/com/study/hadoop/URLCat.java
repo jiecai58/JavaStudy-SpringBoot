@@ -1,6 +1,6 @@
 package com.study.hadoop;
 
-import org.apache.hadoop.conf.Configuration;
+/*import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.FsUrlStreamHandlerFactory;
@@ -12,10 +12,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 
-/**
- * @author Darcy
- *         Created by Administrator on 2017/6/7.
- */
 public class URLCat {
     static {
         URL.setURLStreamHandlerFactory(new FsUrlStreamHandlerFactory());
@@ -25,8 +21,8 @@ public class URLCat {
         InputStream in = null;
        // Configuration conf = new Configuration();
         try {
-           /* FileSystem fs = FileSystem.get(URI.create(hdfs), conf);
-            in = fs.open(new Path(hdfs));*/
+           *//* FileSystem fs = FileSystem.get(URI.create(hdfs), conf);
+            in = fs.open(new Path(hdfs));*//*
             in = new URL(hdfs).openStream();
             IOUtils.copyBytes(in, System.out, 4096, false);
         } catch (IOException e) {
@@ -40,4 +36,4 @@ public class URLCat {
         URLCat cat = new URLCat();
         cat.readHadoopFile("hdfs://localhost/user/root/LICENSE.txt");
     }
-}
+}*/

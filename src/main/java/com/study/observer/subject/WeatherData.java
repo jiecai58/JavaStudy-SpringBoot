@@ -1,6 +1,6 @@
 package com.study.observer.subject;
 
-import com.wyt.headfirst.observer.observer.IObserver;
+import com.study.observer.observer.IObserver;
 
 import java.util.ArrayList;
 import java.util.List;

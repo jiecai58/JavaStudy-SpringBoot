@@ -5,14 +5,11 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
-/**
- * @author Darcy
- * Created By Darcy on 2018/2/1 下午4:47
- */
+
 public class EchoServerHandler extends ChannelHandlerAdapter {
     int counter = 0;
 
-    @Override
+    //@Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         String body = (String) msg;
         System.out.println("This is " + ++counter + " times receive client : [" + body + "]");

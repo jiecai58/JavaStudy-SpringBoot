@@ -1,7 +1,7 @@
 package com.study.thread.producerconsumer;
 
-import com.wyt.headfirst.thread.twotermination.AbstractTerminatableThread;
-import com.wyt.headfirst.thread.twotermination.TerminationToken;
+import com.study.thread.twotermination.AbstractTerminatableThread;
+import com.study.thread.twotermination.TerminationToken;
 
 import java.util.Random;
 import java.util.concurrent.BlockingDeque;

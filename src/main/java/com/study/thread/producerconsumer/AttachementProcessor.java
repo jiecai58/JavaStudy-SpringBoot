@@ -1,6 +1,6 @@
 package com.study.thread.producerconsumer;
 
-import com.wyt.headfirst.thread.twotermination.AbstractTerminatableThread;
+import com.study.thread.twotermination.AbstractTerminatableThread;
 
 import java.io.*;
 import java.text.Normalizer;

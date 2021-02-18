@@ -1,6 +1,6 @@
 package com.study.thinking.abstractfactory.tablefactory;
 
-import com.wyt.headfirst.thinking.abstractfactory.factory.Link;
+import com.study.thinking.abstractfactory.factory.Link;
 
 /**
  * @author Darcy

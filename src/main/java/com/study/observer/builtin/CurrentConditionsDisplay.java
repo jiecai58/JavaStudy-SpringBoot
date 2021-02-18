@@ -1,6 +1,6 @@
 package com.study.observer.builtin;
 
-import com.wyt.headfirst.observer.observer.IDisplayElement;
+import com.study.observer.observer.IDisplayElement;
 
 import java.util.Observable;
 import java.util.Observer;

@@ -1,7 +1,7 @@
 package com.study.thinking.abstractfactory.tablefactory;
 
-import com.wyt.headfirst.thinking.abstractfactory.factory.Item;
-import com.wyt.headfirst.thinking.abstractfactory.factory.Page;
+import com.study.thinking.abstractfactory.factory.Item;
+import com.study.thinking.abstractfactory.factory.Page;
 
 /**
  * @author Darcy

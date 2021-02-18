@@ -11,7 +11,7 @@ import java.net.InetSocketAddress;
 
 
 /**
- * @author eudora
+ * @author leo
  */
 public class SecureChatServer extends ChatServer {
     private final SslContext context;

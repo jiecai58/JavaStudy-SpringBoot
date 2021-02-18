@@ -4,7 +4,6 @@ package com.study.akka;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import akka.agent.Agent;
 import com.typesafe.config.ConfigFactory;
 
 /**

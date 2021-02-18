@@ -8,7 +8,7 @@ import io.netty.channel.ChannelHandlerContext;
  * Created By Darcy on 2018/2/1 下午5:13
  */
 public class EchoFixedLengthServerHandler extends ChannelHandlerAdapter {
-    @Override
+    //@Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println("Receive client : [" + msg + "]");
     }

@@ -1,5 +1,5 @@
 package com.study.redis;/*
-package com.wyt.headfirst.redis;
+package com.study.redis;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

@@ -1,6 +1,6 @@
 package com.study.thread;
 
-import com.wyt.headfirst.lambda.Apple;
+import com.study.lambda.Apple;
 
 import java.util.Iterator;
 import java.util.Map;

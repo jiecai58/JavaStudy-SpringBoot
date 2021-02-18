@@ -1,9 +1,9 @@
 package com.study.thinking.abstractfactory.tablefactory;
 
-import com.wyt.headfirst.thinking.abstractfactory.factory.Factory;
-import com.wyt.headfirst.thinking.abstractfactory.factory.Link;
-import com.wyt.headfirst.thinking.abstractfactory.factory.Page;
-import com.wyt.headfirst.thinking.abstractfactory.factory.Tray;
+import com.study.thinking.abstractfactory.factory.Factory;
+import com.study.thinking.abstractfactory.factory.Link;
+import com.study.thinking.abstractfactory.factory.Page;
+import com.study.thinking.abstractfactory.factory.Tray;
 
 /**
  * @author Darcy

@@ -1,7 +1,7 @@
 package com.study.thinking.factory.factory.idcard;
 
-import com.wyt.headfirst.thinking.factory.factory.framework.Factory;
-import com.wyt.headfirst.thinking.factory.factory.framework.Product;
+import com.study.thinking.factory.factory.framework.Factory;
+import com.study.thinking.factory.factory.framework.Product;
 
 import java.util.ArrayList;
 import java.util.HashMap;

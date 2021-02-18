@@ -9,7 +9,7 @@ import javax.net.ssl.SSLEngine;
 
 
 /**
- * @author eudora
+ * @author leo
  */
 public class SecureChatServerInitializer extends ChatServerInitializer {
     private final SslContext context;

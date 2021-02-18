@@ -1,7 +1,7 @@
 package com.study.strategy;
 
-import com.wyt.headfirst.strategy.behaviour.IFlyBehavior;
-import com.wyt.headfirst.strategy.behaviour.IQuackBehavior;
+import com.study.strategy.behaviour.IFlyBehavior;
+import com.study.strategy.behaviour.IQuackBehavior;
 
 /**
  * 鸭子的实体的超类

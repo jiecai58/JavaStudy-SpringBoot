@@ -1,5 +1,5 @@
 package com.study.redis;/*
-package com.wyt.headfirst.redis;
+package com.study.redis;
 
 import org.javatuples.Pair;
 import redis.clients.jedis.*;

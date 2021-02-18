@@ -1,9 +1,6 @@
 package com.study.thread.Disruptor;
 
-/**
- * @author Darcy
- *         Created by Administrator on 2016/12/22.
- */
+
 public class PCData {
     private long value;
 

@@ -1,8 +1,6 @@
 package com.study.observer.subject;
 
-import com.wyt.headfirst.observer.observer.IObserver;
-
-import java.util.Observer;
+import com.study.observer.observer.IObserver;
 
 /**
  * 出版者或者主题

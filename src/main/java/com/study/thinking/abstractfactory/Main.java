@@ -1,9 +1,9 @@
 package com.study.thinking.abstractfactory;
 
-import com.wyt.headfirst.thinking.abstractfactory.factory.Factory;
-import com.wyt.headfirst.thinking.abstractfactory.factory.Link;
-import com.wyt.headfirst.thinking.abstractfactory.factory.Page;
-import com.wyt.headfirst.thinking.abstractfactory.factory.Tray;
+import com.study.thinking.abstractfactory.factory.Factory;
+import com.study.thinking.abstractfactory.factory.Link;
+import com.study.thinking.abstractfactory.factory.Page;
+import com.study.thinking.abstractfactory.factory.Tray;
 
 /**
  *
@@ -13,8 +13,8 @@ import com.wyt.headfirst.thinking.abstractfactory.factory.Tray;
  */
 public class Main {
     public static void main(String[] args) {
-       // Factory factory = Factory.getFactory("com.wyt.headfirst.thinking.abstractfactory.listfactory.ListFactory");
-        Factory factory = Factory.getFactory("com.wyt.headfirst.thinking.abstractfactory.tablefactory.TableFactory");
+       // Factory factory = Factory.getFactory("com.study.thinking.abstractfactory.listfactory.ListFactory");
+        Factory factory = Factory.getFactory("com.study.thinking.abstractfactory.tablefactory.TableFactory");
         Link people = factory.createLink(" 人民日报", "http://www.people.com.cn/");
         Link gmw = factory.createLink(" 光明日报", "http://www.gmw.cn/");
 

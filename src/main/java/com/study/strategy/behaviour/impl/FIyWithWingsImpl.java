@@ -1,6 +1,6 @@
 package com.study.strategy.behaviour.impl;
 
-import com.wyt.headfirst.strategy.behaviour.IFlyBehavior;
+import com.study.strategy.behaviour.IFlyBehavior;
 
 /**
  * 有翅膀的鸭子飞行的实现类

@@ -1,8 +1,8 @@
 package com.study.thinking.abstractfactory.listfactory;
 
-import com.wyt.headfirst.lambda.Track;
-import com.wyt.headfirst.thinking.abstractfactory.factory.Item;
-import com.wyt.headfirst.thinking.abstractfactory.factory.Tray;
+import com.study.lambda.Track;
+import com.study.thinking.abstractfactory.factory.Item;
+import com.study.thinking.abstractfactory.factory.Tray;
 
 import java.util.Iterator;
 
