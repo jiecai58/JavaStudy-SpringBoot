@@ -1,11 +1,11 @@
 package com.study.designPattern;
 
-import com.study.future.CustomerInfoService;
-import com.study.future.LabelService;
-import com.study.future.LearnRecordService;
-import com.study.future.OrderService;
-import com.study.future.RemoteLoader;
-import com.study.future.WatchRecordService;
+import com.study.completableFuture.future.CustomerInfoService;
+import com.study.completableFuture.future.LabelService;
+import com.study.completableFuture.future.LearnRecordService;
+import com.study.completableFuture.future.OrderService;
+import com.study.completableFuture.future.RemoteLoader;
+import com.study.completableFuture.future.WatchRecordService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

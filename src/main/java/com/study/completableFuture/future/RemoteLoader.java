@@ -1,4 +1,4 @@
-package com.study.future;
+package com.study.completableFuture.future;
 
 import java.util.Map;
 
