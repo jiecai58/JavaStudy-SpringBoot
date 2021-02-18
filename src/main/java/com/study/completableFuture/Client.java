@@ -2,7 +2,10 @@ package com.study.completableFuture;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -159,4 +162,31 @@ public class Client {
     }
 
 
+
+
+    public void findPrices2(String product){
+
+        long start = System.currentTimeMillis();
+        List<Shop> shops = Arrays.asList(
+                new Shop("shop1"),
+                new Shop("shop2"),
+                new Shop("shop3")
+        );
+        Executor executor = Executors.newCachedThreadPool();
+        //Executor executor = Executors.newFixedThreadPool(Math.min(shops.size(),100));
+        CompletableFuture<?>[] priceFuture = shops.stream().map(
+                shop -> CompletableFuture.supplyAsync(() -> shop.getPrice2(product), executor)
+                        .thenCombine(CompletableFuture.supplyAsync(()-> ExchangeRate.getRate("USD","CNY"),executor),
+                                (quote, rate) -> new Quote(quote.getShopName(),quote.getPrice()*rate,quote.getDiscountCode())))//这返回的是异步处理
+                //.map(future->future.thenApply(Quote::parse))//thenApp是前一个对象完成了之后调下个对象的方法（parse）
+                .map(future -> future.thenCompose(quote -> CompletableFuture.supplyAsync(() -> Discount.applyDiscount(quote), executor)))
+                //thenAccept()定义CompletableFuture返回的结果
+                .map(future -> future.thenAccept(content -> System.out.println(content + "(done in " + (System.currentTimeMillis() - start) + " msecs")))
+                .toArray(size->new  CompletableFuture[size]);
+        //allOf接收一个数组，当里面的CompletableFuture都完成的时候，就会执行下一个语句
+        CompletableFuture.allOf(priceFuture).thenAccept((obj)->System.out.println(" all done"));
+        //allOf接收一个数组，当里面的CompletableFuture有一个完成时，就会执行下一个语句
+        CompletableFuture.anyOf(priceFuture).thenAccept((obj) -> System.out.println("fastest anyOf done " + obj));
+
+    }
 }
