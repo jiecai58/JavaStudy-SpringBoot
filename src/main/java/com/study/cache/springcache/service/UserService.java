@@ -1,5 +1,6 @@
 package com.study.cache.springcache.service;
 
+import com.study.aspect.MyCache;
 import com.study.cache.springcache.entity.User;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -15,6 +16,19 @@ import java.util.Set;
 public class UserService{
 
     Set<User> users = new HashSet<User>();
+
+
+    @CachePut(value = "mycache", key = "#user.name + #user.email",condition = "#user.age < 35")
+    public User save1(User user) {
+        users.add(user);
+        return user;
+    }
+
+    //@Cacheable(value = "mycache", key = "#name.concat(#email)",condition = "#name eq 'wangd'")
+    @MyCache(value = "#name.concat(#email)",condition = "#name eq 'ye'")
+   public User findByNameAndEmail(String name, String email){
+       return new User(null,name,0,email);
+   }
 
     @CachePut(key = "#user.id")
     public User save(User user) {

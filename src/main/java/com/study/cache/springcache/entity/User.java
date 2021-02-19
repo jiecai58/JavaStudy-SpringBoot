@@ -11,10 +11,11 @@ public class User implements Serializable{
 	
 	private String email;	
 
-	public User(Long id, String name, String email) {
+	public User(Long id, String name, int age, String email) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.age = age;
 		this.email = email;
 	}
 
