@@ -2,6 +2,7 @@ package com.study.designPattern.cache.springCache;
 
 import com.study.cache.springcache.entity.User;
 import com.study.cache.springcache.service.UserService;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,8 +42,8 @@ public class UserServiceTest {
 
         //System.out.printf(userService.get(new User(id, "ye", null)).getEmail());
 
-        /*Assert.assertNotNull(cacheManager.getCache(String.valueOf(id)));
+        Assert.assertNotNull(cacheManager.getCache(String.valueOf(id)));
         cacheManager.getCache("user");
-        userService.findById(id);*/
+        userService.findById(id);
     }
 }
