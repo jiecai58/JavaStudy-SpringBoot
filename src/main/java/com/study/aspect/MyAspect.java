@@ -22,6 +22,8 @@ public class MyAspect{
 
     public String condition;
 
+
+
     public static final ExpressionParser expressionParser = new SpelExpressionParser();
     public static final EvaluationContext evalContext = new StandardEvaluationContext();
 
@@ -33,10 +35,13 @@ public class MyAspect{
         //得到el表达式
         String el = dst.value();
         //解析el表达式，将#id等替换为参数值
-        String[] parameterNames = methodSignature.getParameterNames();
+        String[] paramNames = methodSignature.getParameterNames();
+
+        int paramCount = (paramNames != null ? paramNames.length : getParameterCount(methodSignature));
+
         Object[] args = joinPoint.getArgs();
-        for (int i = 0; i <parameterNames.length ; i++) {
-            evalContext.setVariable(parameterNames[i],args[i]);
+        for (int i = 0; i <paramCount ; i++) {
+            evalContext.setVariable(paramNames[i],args[i]);
         }
         Expression expression = expressionParser.parseExpression(dst.value());
         String key = expression.getValue(evalContext).toString();
@@ -53,6 +58,10 @@ public class MyAspect{
 
         return o;
 
+    }
+
+    public int getParameterCount(MethodSignature  methodSignature) {
+        return methodSignature.getParameterTypes().length;
     }
 
     protected boolean isConditionPassing() {

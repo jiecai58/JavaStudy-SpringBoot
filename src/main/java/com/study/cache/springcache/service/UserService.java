@@ -1,6 +1,5 @@
 package com.study.cache.springcache.service;
 
-import com.study.aspect.MyCache;
 import com.study.cache.springcache.entity.User;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -24,8 +23,8 @@ public class UserService{
         return user;
     }
 
-    //@Cacheable(value = "mycache", key = "#name.concat(#email)",condition = "#name eq 'wangd'")
-    @MyCache(value = "#name.concat(#email)",condition = "#name eq 'ye'")
+    @Cacheable(value = "mycache", key = "#name.concat(#email)",condition = "#name eq 'wangd'")
+    //@MyCache(value = "#name.concat(#email)",condition = "#name eq 'ye'")
    public User findByNameAndEmail(String name, String email){
        return new User(null,name,0,email);
    }

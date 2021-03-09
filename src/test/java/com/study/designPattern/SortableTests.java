@@ -15,8 +15,6 @@ public abstract class SortableTests extends TestCase {
     public final void testSet(){
 
     }
-    public final void testSize(){
 
-    }
 
 }

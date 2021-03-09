@@ -35,7 +35,7 @@ public class UserServiceTest {
 
         Long id = 1L;
         User user = new User(id, "ye", 20,"swiftleaf612@gmail.com");
-        //userService.save1(user);
+        userService.save1(user);
         userService.findByNameAndEmail(user.getName(), user.getEmail()).getAge();
         //cacheManager.getCacheNames();
         cacheManager.getCache("mycache").get(user.getName()+user.getEmail());

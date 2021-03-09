@@ -426,4 +426,18 @@ public class Future {
     }
 
 
+    /*List<java.util.concurrent.Future<List<StockData>>> collect1 = item.stream().map(
+            rl-> CompletableFuture.supplyAsync(()->xx(rl,  pidsDistinct, isVirtual), executor)
+    ).collect(Collectors.toList());
+
+    List<StockData> collect = collect1.stream().flatMap(x -> {
+        try {
+            return x.get().stream();
+        } catch (Exception e) {
+            log.warn("qpl-stock-core-queryAvaiStockThreadPool error x:{}, e:{} ", JSON.toJSON(x), e);
+            return new ArrayList<StockData>().stream();
+        }
+    }).collect(Collectors.toList());*/
+
+
 }
