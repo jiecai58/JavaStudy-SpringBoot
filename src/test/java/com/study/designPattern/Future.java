@@ -12,17 +12,23 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -51,6 +57,19 @@ public class Future {
                     return null;
                 })
                 .filter(Objects::nonNull).collect(toList());
+
+        Map<String, String> customerDetail1 = futures.stream().flatMap(
+                future -> {
+                    try {
+                        return future.get().entrySet().stream();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }).filter(Objects::nonNull).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+
         System.out.println(customerDetail);
         long end = System.currentTimeMillis();
         System.out.println("总共花费时间:" + (end - start));
@@ -366,7 +385,7 @@ public class Future {
         CompletableFuture<Void> future = CompletableFuture
                 .allOf(CompletableFuture.completedFuture("A"),
                         CompletableFuture.completedFuture("B"));
-         //全部任务都需要执行完
+        //全部任务都需要执行完
         future.join();
         CompletableFuture<Object> future2 = CompletableFuture
                 .anyOf(CompletableFuture.completedFuture("C"),
@@ -425,19 +444,29 @@ public class Future {
                 });
     }
 
+    public void testExe() {
+        //CallerRunsPolicy多线程处理数据会导致无序
+        ThreadPoolExecutor executorA = new ThreadPoolExecutor(
+                4,
+                4,
+                10L,
+                TimeUnit.MILLISECONDS,
+                new LinkedBlockingDeque<>(100),
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.CallerRunsPolicy()
+        );
 
-    /*List<java.util.concurrent.Future<List<StockData>>> collect1 = item.stream().map(
-            rl-> CompletableFuture.supplyAsync(()->xx(rl,  pidsDistinct, isVirtual), executor)
-    ).collect(Collectors.toList());
-
-    List<StockData> collect = collect1.stream().flatMap(x -> {
-        try {
-            return x.get().stream();
-        } catch (Exception e) {
-            log.warn("qpl-stock-core-queryAvaiStockThreadPool error x:{}, e:{} ", JSON.toJSON(x), e);
-            return new ArrayList<StockData>().stream();
+        //DiscardOldestPolicy抛弃旧任务策略,CallerRunsPolicy调用者运行,DiscardPolicy抛弃策略,AbortPolicy中止策略
+        for (int i = 0; i < 500; i++) {
+            int s = i;
+            executorA.execute(() -> {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("【" + LocalTime.now() + "】线程 " + Thread.currentThread() + "正在执行任务" + s);
+            });
         }
-    }).collect(Collectors.toList());*/
-
-
+    }
 }
