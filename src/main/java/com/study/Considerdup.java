@@ -1,11 +1,7 @@
 package com.study;
 
-import org.apache.hadoop.hdfs.protocol.CacheDirectiveInfo;
-import org.springframework.data.redis.connection.RedisStringCommands;
-import org.springframework.data.redis.core.RedisCallback;
-
 public class Considerdup {
-    public Boolean up() {
+   /* public Boolean up() {
         String userId = "12345678";//用户
         String method = "pay";//接口名
         String dedupMD5 = new ReqDedupHelper().dedupParamMD5(req, "requestTime");//计算请求参数摘要，其中剔除里面请求时间的干扰
@@ -26,5 +22,5 @@ public class Considerdup {
             isConsiderDup = true;
         }
         return isConsiderDup;
-    }
+    }*/
 }
