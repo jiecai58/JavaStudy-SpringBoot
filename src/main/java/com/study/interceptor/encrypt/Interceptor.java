@@ -1,4 +1,4 @@
-package com.study.encrypt;
+package com.study.interceptor.encrypt;
 
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;

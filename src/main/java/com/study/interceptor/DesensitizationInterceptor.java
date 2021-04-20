@@ -2,8 +2,7 @@ package com.study.interceptor;
 
 import com.study.interceptor.annotation.Desensitization;
 import com.study.interceptor.enum1.DesensitionType;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MapUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.cache.CacheKey;
@@ -19,6 +18,7 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

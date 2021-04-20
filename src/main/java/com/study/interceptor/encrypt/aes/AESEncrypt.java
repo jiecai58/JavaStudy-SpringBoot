@@ -1,11 +1,11 @@
 package com.study.interceptor.encrypt.aes;
 
-import com.study.encrypt.SensitiveField;
 import com.study.interceptor.encrypt.EncryptUtil;
+import com.study.interceptor.annotation.SensitiveField;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Field;
 import java.util.Objects;
+import java.lang.reflect.Field;
 
 @Component
 public class AESEncrypt implements EncryptUtil {

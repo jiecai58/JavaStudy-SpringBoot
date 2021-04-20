@@ -1,11 +1,9 @@
 package com.study.interceptor;
 
-
-import com.mysql.jdbc.Statement;
 import com.study.interceptor.annotation.EncryptDecryptClass;
 import com.study.interceptor.encrypt.IEncryptDecrypt;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
@@ -17,6 +15,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
+import java.beans.Statement;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Properties;

@@ -1,7 +1,7 @@
 package com.study.interceptor;
 
-import com.study.encrypt.DecryptUtil;
-import com.study.encrypt.SensitiveData;
+import com.study.interceptor.encrypt.DecryptUtil;
+import com.study.interceptor.annotation.SensitiveData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.plugin.Interceptor;
@@ -9,6 +9,7 @@ import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -20,7 +21,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 /**
- * @author caijie
+ * @author leo
  */
 @Slf4j
 @Component
@@ -30,7 +31,7 @@ import java.util.Properties;
 public class DecryptInterceptor implements Interceptor {
 
     @Resource
-    DecryptUtil aesDecrypt;
+    private DecryptUtil aesDecrypt;
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {

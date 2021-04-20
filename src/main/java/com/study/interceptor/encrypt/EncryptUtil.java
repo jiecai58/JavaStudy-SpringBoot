@@ -1,7 +1,6 @@
 package com.study.interceptor.encrypt;
 
 import java.lang.reflect.Field;
-
 /**
  * @author leo
  */

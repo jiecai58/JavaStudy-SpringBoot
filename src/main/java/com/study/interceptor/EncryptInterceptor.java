@@ -1,7 +1,7 @@
 package com.study.interceptor;
 
-import com.study.encrypt.EncryptUtil;
-import com.study.encrypt.SensitiveData;
+import com.study.interceptor.encrypt.EncryptUtil;
+import com.study.interceptor.annotation.SensitiveData;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.plugin.Interceptor;
@@ -13,9 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.util.Objects;
+import java.lang.reflect.Field;
 import java.util.Properties;
 
 /**
@@ -28,7 +28,7 @@ import java.util.Properties;
  *     type 属性指定当前拦截器使用StatementHandler 、ResultSetHandler、ParameterHandler，Executor的一种
  *     method 属性指定使用以上四种类型的具体方法（可进入class内部查看其方法）。
  *     args 属性指定预编译语句
- * @author : caijie
+ * @author : tanzj
  * @date : 2020/1/19.
  */
 @Slf4j
