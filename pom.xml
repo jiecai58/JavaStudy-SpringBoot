@@ -19,7 +19,7 @@
         <java.version>1.8</java.version>
         <vaadin.version>14.0.11</vaadin.version>
         <netty.version>4.1.50.Final</netty.version>
-        <hibernate.version>5.4.18.Final</hibernate.version>
+        <hibernate.version>5.4.24.Final</hibernate.version>
         <org.aspectj.version>1.9.4</org.aspectj.version>
         <cglib.version>3.2.5</cglib.version>
         <elasticsearch.version>7.8.0</elasticsearch.version>
